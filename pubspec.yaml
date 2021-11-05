@@ -1,0 +1,18 @@
+name: wheel_scrolling
+description: Circle and normal Wheel List View with clickable for flutter based on ListWheelScrollView by flutter team with null safety.
+version: 0.0.1-beta
+
+homepage: https://github.com/kobeumut/wheel_scrolling
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+#dependency_overrides:
+  vector_math: ^2.1.0
+
+
+

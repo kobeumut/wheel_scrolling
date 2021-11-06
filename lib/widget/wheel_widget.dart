@@ -10,9 +10,11 @@ class WheelWidget extends StatefulWidget {
 
   final double? size, textSize;
   final Color? color, selectedColor, textColor, selectedTextColor;
+  final List<String> textList;
 
   const WheelWidget(
       {Key? key,
+      required this.textList,
       this.size,
       this.color,
       this.selectedColor,
@@ -30,7 +32,7 @@ class _WheelWidgetState extends State<WheelWidget> {
   int? index;
   final double _defaultSize = 100;
   late CWS.FixedExtentScrollController _controller =
-      CWS.FixedExtentScrollController(initialItem: 18);
+      CWS.FixedExtentScrollController(initialItem: widget.textList.length);
 
   Widget _buildItem(int i) {
     return Center(
@@ -47,7 +49,7 @@ class _WheelWidgetState extends State<WheelWidget> {
             padding: const EdgeInsets.all(5.0),
             child: Center(
                 child: Text(
-              "test - ${i.toString()}",
+              widget.textList[i],
               style: TextStyle(
                   color:
                       index == i ? widget.selectedTextColor : widget.textColor,
@@ -69,7 +71,7 @@ class _WheelWidgetState extends State<WheelWidget> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return ClickableListWheelScrollView(
-          itemCount: 20,
+          itemCount: widget.textList.length,
           listHeight: constraints.maxWidth,
           onItemTapCallback: (index) => log("tiklandi $index"),
           itemHeight: widget.size ?? _defaultSize,
@@ -79,7 +81,8 @@ class _WheelWidgetState extends State<WheelWidget> {
               physics: CWS.CircleFixedExtentScrollPhysics(),
               axis: Axis.horizontal,
               itemExtent: (widget.size ?? _defaultSize),
-              children: List.generate(20, (index) => _buildItem(index)),
+              children: List.generate(
+                  widget.textList.length, (index) => _buildItem(index)),
               radius: constraints.maxWidth * 0.4,
               onSelectedItemChanged: (int index) => setState(() {
                     widget.onSelectedItemChanged?.call(index);
